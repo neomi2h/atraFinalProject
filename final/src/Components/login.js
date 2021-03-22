@@ -1,19 +1,22 @@
 import React, { useRef, useState } from 'react';
 import axios from 'axios';
-import {setUser} from '../Redux/Actions/userAction'
 import {connect} from 'react-redux'
 import {BsFillPersonFill} from 'react-icons/bs'
 import {Link} from 'react-router-dom'
 import {Redirect} from 'react-router'
-
+import {actions} from '../Redux/Actions/action'
 function mapStateToProps(state){
     return{
         user: state.user.user
     };
 }
-
-export default connect(mapStateToProps)(function Login(props) {
-const {dispatch}=props
+const mapDispatchToProps = (dispatch) => ({
+    
+    setUser: (user) => dispatch(actions.setUser(user)),
+    
+}) 
+export default connect(mapStateToProps,mapDispatchToProps)(function Login(props) {
+const {setUser}=props
     const nameRef = useRef('');
     const passwordRef = useRef('');
     const[clogin,setClogin] =useState('')
@@ -36,7 +39,7 @@ const {dispatch}=props
             res => {
                 console.log('login work');
                 let  tempuser=JSON.stringify(res.data.theUser[0])
-                dispatch(setUser(tempuser));
+                setUser(tempuser);
                 setClogin("ok");
             },
             err => {

@@ -16,7 +16,7 @@ export default connect(mapStateToProps)(function SearchHistory(props) {
 
     useEffect(()=>{
         getSearchHistory({id:user._id});  
-      },[])
+      },)
 
     async function getSearchHistory(id) {
         console.log(id)
@@ -34,9 +34,9 @@ export default connect(mapStateToProps)(function SearchHistory(props) {
           <>
           <p><Link to='/drinks'> <strong>Back to list drinks</strong></Link></p>
           <p>Your search:</p>
-          {searchList ? <table> <tbody>
+          {searchList ? <table><tbody>
              {searchList.map((item)=>< Item key={item._id} label={item.label } image={item.image} ></Item>)}
-        </tbody></table> : <p>No Searches found</p>}
+        </tbody></table>:<p>No Searches found</p>}
           </>
     )
 })
@@ -49,7 +49,7 @@ class Item extends React.Component{
              <>
             <tr>
                <td> { this.props.label}  </td>
-               <td><img src={this.props.image} style={{height:"30px",width:"30px"}}></img> </td> 
+               <td><img src={this.props.image} alt="history" style={{height:"30px",width:"30px"}}></img> </td> 
             </tr>
              </>
          )
